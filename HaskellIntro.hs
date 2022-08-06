@@ -46,6 +46,7 @@ validate x = if (lastDigit (sumDigits (doubleEveryOther (toDigits x)))) == 0 the
 
 pow :: (a -> a) -> Int -> a -> a
 pow = error "pow not yet defined"
+--pow (f, n) = (f n) + pow f (n -1)
 
 g :: Integer -> Integer
 g = error "g not yet defined"
@@ -60,9 +61,9 @@ d = error "d not yet defined"
 -- Problem 3
 --
 
-powerSetHelper :: (a, Set a) -> Set (Set a)
-powerSetHelper (x, xs) = mapSet (insert x) (powerSet xs) `union` powerSet xs
+--powerSetHelper :: (a, Set a) -> Set (Set a)
+--powerSetHelper (x, xs) = mapSet (insert x) (powerSet xs) `union` powerSet xs
 
-powerSet :: Set a -> Set (Set a)
-powerSet isEmpty = empty
-powerSet x = powerSetHelper (split x)
+--powerSet :: Set a -> Set (Set a)
+--powerSet isEmpty = empty
+--powerSet x = powerSetHelper (split x)
