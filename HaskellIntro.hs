@@ -15,22 +15,30 @@ isThisWorking = "Yes"
 --
 
 lastDigit :: Integer -> Integer
-lastDigit = error "lastDigit not yet defined"
+lastDigit x = if x < 10 then x else mod x 10
 
 dropLastDigit :: Integer -> Integer
-dropLastDigit = error "dropLastDigit not yet defined"
+dropLastDigit x = if x < 10 then 0 else div x 10
 
 toDigits :: Integer -> [Integer]
-toDigits = error "toDigits not yet defined"
+toDigits x = map (\n -> read [n] :: Integer) (show x)
+
+doubleEveryOtherFromLeft :: [Integer] -> [Integer]
+doubleEveryOtherFromLeft [] = []
+doubleEveryOtherFromLeft [x] = [x]
+doubleEveryOtherFromLeft (x:xs:y) = x : xs * 2 : (doubleEveryOtherFromLeft y)
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther = error "doubleEveryOther not yet defined"
+doubleEveryOther [] = []
+doubleEveryOther [x] = [x]
+doubleEveryOther x = reverse (doubleEveryOtherFromLeft (reverse x))
 
 sumDigits :: [Integer] -> Integer
-sumDigits = error "sumDigits not yet defined"
+sumDigits [] = 0
+sumDigits (x:xs) = if x < 10 then x + sumDigits xs else sumDigits (toDigits x) + sumDigits xs
 
 validate :: Integer -> Bool
-validate = error "validate not yet defined"
+validate x = if (lastDigit (sumDigits (doubleEveryOther (toDigits x)))) == 0 then True else False
 
 --
 -- Problem 2
@@ -52,4 +60,9 @@ d = error "d not yet defined"
 -- Problem 3
 --
 
-powerSet = error "powerSet not yet defined"
+powerSetHelper :: (a, Set a) -> Set (Set a)
+powerSetHelper (x, xs) = mapSet (insert x) (powerSet xs) `union` powerSet xs
+
+powerSet :: Set a -> Set (Set a)
+powerSet isEmpty = empty
+powerSet x = powerSetHelper (split x)
